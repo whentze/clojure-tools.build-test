@@ -13,8 +13,8 @@ let
     # first bad commit
     # clojure: 1.10.3.855 -> 1.10.3.933
     builtins.fetchTarball {
-      url = "https://github.com/NixOS/nixpkgs/archive/fea6b0e497fbda44ad1afd66286dde8e2151f0d7.tar.gz";
-      sha256 = "1973f3f4hv1rz6jvq51f4kqh64in3nwn7im3bwwh5p0imaf5kahs";
+      url = "https://github.com/NixOS/nixpkgs/archive/1d425aeca2585713fc85aa898dcb4944530e00d8.tar.gz";
+      sha256 = "05nclbqziyn75sj1yaa10zar8sb6vdnwfv5bx7111i0i9454w8r6";
     };
 in
 with import nixpkgs {};
@@ -38,5 +38,6 @@ stdenv.mkDerivation rec {
 
     # strace -e 'trace=%file' -y clojure -X:build uber
     clojure -X:build uber
+    mv target/uber.jar $out
   '';
 }

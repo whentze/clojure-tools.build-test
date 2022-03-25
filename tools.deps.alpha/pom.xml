@@ -1,0 +1,211 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>tools.deps.alpha</artifactId>
+  <version>0.12.1163-SNAPSHOT</version>
+  <name>tools.deps.alpha</name>
+
+  <parent>
+    <groupId>org.clojure</groupId>
+    <artifactId>pom.contrib</artifactId>
+    <version>1.1.0</version>
+  </parent>
+
+  <developers>
+    <developer>
+      <id>puredanger</id>
+      <name>Alex Miller</name>
+    </developer>
+  </developers>
+
+  <properties>
+    <!-- used for build -->
+    <clojure.warnOnReflection>true</clojure.warnOnReflection>
+    <clojure.version>1.10.3</clojure.version>
+    <resolverVersion>1.6.3</resolverVersion>
+    <mavenVersion>3.8.4</mavenVersion>
+
+    <!-- default published in install deps.edn -->
+    <clojure.default>1.10.3</clojure.default>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>${clojure.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-api</artifactId>
+      <version>${resolverVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-spi</artifactId>
+      <version>${resolverVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-impl</artifactId>
+      <version>${resolverVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-util</artifactId>
+      <version>${resolverVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-connector-basic</artifactId>
+      <version>${resolverVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-transport-file</artifactId>
+      <version>${resolverVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.resolver</groupId>
+      <artifactId>maven-resolver-transport-http</artifactId>
+      <version>${resolverVersion}</version>
+	  <exclusions>
+        <exclusion> <!-- CVE-2020-13956 -->
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency> <!-- overridden transitive dep -->
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.13</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-resolver-provider</artifactId>
+      <version>${mavenVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>${mavenVersion}</version>
+	  <exclusions>
+        <exclusion> <!-- CVE-2021-29425 -->
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+        </exclusion>
+        <exclusion> <!-- CVE-2020-8908 -->
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency> <!-- overridden transitive dep -->
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.11.0</version>
+    </dependency>
+    <dependency> <!-- overridden transitive dep -->
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>31.0.1-android</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-nop</artifactId>
+      <version>1.7.35</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>data.xml</artifactId>
+      <version>0.2.0-alpha6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>tools.gitlibs</artifactId>
+      <version>2.4.172</version>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>tools.cli</artifactId>
+      <version>1.0.206</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cognitect.aws</groupId>
+      <artifactId>api</artifactId>
+      <version>0.8.539</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cognitect.aws</groupId>
+      <artifactId>endpoints</artifactId>
+      <version>1.1.12.150</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cognitect.aws</groupId>
+      <artifactId>s3</artifactId>
+      <version>814.2.1053.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+      <plugin>
+      <!-- By default, compile everything as a sanity check, but do
+           not include any AOT-compiled .class files in the
+           JAR. Projects may override as needed. -->
+      <groupId>com.theoryinpractise</groupId>
+      <artifactId>clojure-maven-plugin</artifactId>
+      <version>1.7.1</version>
+      <extensions>true</extensions>
+      <configuration>
+        <warnOnReflection>${clojure.warnOnReflection}</warnOnReflection>
+        <temporaryOutputDirectory>true</temporaryOutputDirectory>
+      </configuration>
+      <executions>
+        <execution>
+          <id>clojure-compile</id>
+          <phase>none</phase>
+        </execution>
+        <execution>
+          <id>clojure-test</id>
+          <phase>test</phase>
+          <goals>
+            <goal>test</goal>
+          </goals>
+        </execution>
+      </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <scm>
+    <connection>scm:git:git@github.com:clojure/tools.deps.alpha.git</connection>
+    <developerConnection>scm:git:git@github.com:clojure/tools.deps.alpha.git</developerConnection>
+    <url>git@github.com:clojure/tools.deps.alpha.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <repositories>
+    <repository>
+      <id>clojars</id>
+      <url>https://clojars.org/repo/</url>
+    </repository>
+  </repositories>
+</project>
